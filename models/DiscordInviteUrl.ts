@@ -1,12 +1,18 @@
-import { z } from 'zod'
-import { getDuplicatesRefinement } from 'zenbox-util/zod'
-import { UrlSchema } from '../../generic/models/Url'
 import { escapeRegExp } from 'lodash-es'
+import { getDuplicatesRefinement } from 'zenbox-util/zod'
+import { z } from 'zod'
+import { UrlSchema } from '../../generic/models/Url'
 
 const startsWithGG = escapeRegExp('https://discord.gg')
 const startsWithCom = escapeRegExp('https://discord.com')
 
-export const DiscordInviteUrlSchema = UrlSchema.regex(new RegExp(`^(?:${startsWithGG}|${startsWithCom})\\/[\\d\\w]+$`))
+const DiscordInviteUrlRegExp = new RegExp(`^(?:${startsWithGG}|${startsWithCom})(\\/invite)?\\/[\\d\\w]+$`)
+
+export const DiscordInviteIdRegExp = new RegExp('^[\\d\\w]+$', 'g')
+
+export const isDiscordInviteId = (s: string) => s.match(DiscordInviteIdRegExp) !== null
+
+export const DiscordInviteUrlSchema = UrlSchema.regex(DiscordInviteUrlRegExp)
 
 export const DiscordInviteUrlsSchema = z.array(DiscordInviteUrlSchema)
   .superRefine(getDuplicatesRefinement('DiscordInviteUrl', parseDiscordInviteUrlUid))
