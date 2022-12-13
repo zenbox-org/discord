@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import { getDuplicatesRefinement } from 'libs/utils/zod'
+import { z } from 'zod'
 import { IdSchema } from '../../generic/models/Id'
 
 export const DiscordServerSchema = z.object({

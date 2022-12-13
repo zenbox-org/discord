@@ -1,5 +1,5 @@
-import { DiscordInviteUrlSchema } from './DiscordInviteUrl'
 import { testSamples } from 'libs/utils/jest/testSamples'
+import { DiscordInviteUrlSchema } from './DiscordInviteUrl'
 
 testSamples(DiscordInviteUrlSchema, [
   'https://discord.gg/e6GfYCqmF7',
